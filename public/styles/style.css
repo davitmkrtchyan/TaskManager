@@ -11,6 +11,6 @@
     -o-transform: translateX(-50%);
     transform: translateX(-50%);
 }
-#deleteForm{
+#deleteForm, #editForm, #restoreHistory{
     float: right;
 }

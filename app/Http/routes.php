@@ -19,7 +19,16 @@ Route::get('/task', 'HomeController@task');
 
 Route::post('/create', 'HomeController@create');
 
-Route::delete('/task/{id}', 'HomeController@delete');
+Route::delete('/task/delete/{id}', 'HomeController@delete');
+
+Route::get('/task/update/{id}', 'HomeController@update');
+
+
+Route::get('/history', 'HomeController@history');
+
+Route::delete('/history/clear', 'HomeController@clearHistory');
+
+Route::post('/history/restore/{id}', 'HomeController@restoreHistory');
 
 Route::auth();
 

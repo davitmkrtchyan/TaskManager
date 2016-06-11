@@ -69,14 +69,23 @@
 
                                                 <!-- Delete Button -->
                                                 <td>
-                                                    <form action="/task/{{ $task->id }}" method="POST" id="deleteForm">
+
+                                                    <form action="/task/delete/{{ $task->id }}" method="POST" id="deleteForm">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
-
-                                                        <button class="delete-button">Delete Task</button>
+                                                        <button class="btn btn-warning delete-button">
+                                                            <i class="icon-trash icon-white"></i>
+                                                            End Task
+                                                        </button>
+                                                    </form>
+                                                    <form action="/task/update/{{ $task->id }}" method="POST" id="editForm">
+                                                        {{ csrf_field() }}
+                                                        <button class="btn btn-info delete-button">
+                                                            <i class="icon-trash icon-white"></i>
+                                                            Edit
+                                                        </button>
                                                     </form>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                         </tbody>

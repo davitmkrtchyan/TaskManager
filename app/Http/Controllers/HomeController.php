@@ -33,7 +33,10 @@ class HomeController extends Controller
     public function task()
     {
 
-        $tasks = User::find($this->user_id)->tasks()->orderBy('created_at', 'desc')->get();
+        $tasks = User::find($this->user_id)
+            ->tasks()
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $tasksCount = count($tasks);
 
@@ -58,17 +61,56 @@ class HomeController extends Controller
         $usertask = User::find($this->user_id);
         $usertask->tasks()->attach($lastid);
 
-
         Session::flash('alert-success', 'New task was added');
 
         return redirect('/task');
     }
 
+    public function update($id){
+//        Task::findOrFail($id)->get();
+    }
+
     public function delete($id){
         Task::findOrFail($id)->delete();
-        Session::flash('alert-info', 'The task moved to Trash');
+        Session::flash('alert-info', 'The task moved to History');
 
 
         return redirect('/task');
+    }
+
+    public function history(){
+
+        $history = User::find($this->user_id)
+            ->tasks()
+            ->whereNotNull('deleted_at')
+            ->withTrashed()
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+//        $paginate = User::paginate(4);
+        $historyCount = count($history);
+
+        return view('history', [
+            'tasks' => $history,
+            'tasksCount' => $historyCount
+        ]);
+    }
+
+    public function restoreHistory($id){
+        Task::withTrashed()->where('id', $id)->restore();
+        Session::flash('alert-success', 'Task was restored');
+        return redirect('/history');
+    }
+
+    public function clearHistory(){
+
+        User::find($this->user_id)
+            ->tasks()
+            ->whereNotNull('deleted_at')
+            ->withTrashed()
+            ->forceDelete();
+
+        Session::flash('alert-info', 'History was deleted');
+        return redirect('/history');
     }
 }

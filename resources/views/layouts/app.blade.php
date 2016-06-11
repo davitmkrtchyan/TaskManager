@@ -49,6 +49,7 @@
                 <ul class="nav navbar-nav">
                     @if(Auth::user())
                         <li><a href="{{ url('/task') }}">Tasks</a></li>
+                        <li><a href="{{ url('/history') }}">History</a></li>
                     @endif
                 </ul>
 

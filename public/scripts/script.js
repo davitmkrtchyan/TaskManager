@@ -4,6 +4,8 @@
 $(document).ready(function(){
     var alertMsg = $(".alert");
 
+    $("#task-name").focus();
+
     alertMsg.css("display","block")
         .animate({
         top : "50px"
@@ -11,6 +13,6 @@ $(document).ready(function(){
     setTimeout(function(){
         alertMsg.animate({
             top: "-100px"
-        }, 400, "linear")}, 3000);
+        }, 400, "linear")}, 4000);
 
 });
